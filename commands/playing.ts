@@ -40,7 +40,7 @@ export = {
 			)
 			.setTimestamp();
 		if(metadata.thumbnail){
-			embed.setThumbnail("https://funky.pghost.org/thumb/"+player.currentTrack.id);
+			embed.setThumbnail(`https://${process.env.DOMAIN}/thumb/${player.currentTrack.id}`);
 		}
 		return interaction.followUp({embeds: [embed]});
 	},

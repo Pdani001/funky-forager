@@ -15,6 +15,7 @@ import cookieParser from "cookie-parser";
 import Twig from "twig";
 import { Playlist, Track, TrackUrl } from "./Track";
 import crypto from "crypto";
+import { version, displayName } from "./package.json";
 
 web.set("views", path.join(__dirname, "public_html"));
 web.set("view engine", "twig");
@@ -155,7 +156,7 @@ client.once(Events.ClientReady, async (readyClient) => {
   sequelize.sync();
   
 
-  console.log(new Date(),`Ready! Logged in as \`${readyClient.user.tag}\``);
+  console.log(new Date(),`${displayName} version ${version} is Ready! Logged in as \`${readyClient.user.tag}\``);
 });
 
 const AutoKill: Collection<string,NodeJS.Timeout> = new Collection();

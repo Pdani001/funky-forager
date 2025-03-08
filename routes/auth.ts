@@ -5,7 +5,7 @@ const router = express.Router();
 const oauth = new DiscordOauth2({
   clientId: process.env.CLIENT_ID,
   clientSecret: process.env.CLIENT_SECRET,
-  redirectUri: "https://funky.pghost.org/auth",
+  redirectUri: `https://${process.env.DOMAIN}/auth`,
 });
 const route: WebRoute = {
   name: "auth",
@@ -80,7 +80,7 @@ router.get(route.path, async (req, res) => {
     }
   }
   return res.redirect(
-    "https://discord.com/api/oauth2/authorize?client_id=1093513107059519558&redirect_uri=https%3A%2F%2Ffunky.pghost.org%2Fauth&response_type=code&scope=identify%20guilds"
+    `https://discord.com/api/oauth2/authorize?client_id=1093513107059519558&redirect_uri=https%3A%2F%2F${process.env.DOMAIN}%2Fauth&response_type=code&scope=identify%20guilds`
   );
 });
 
