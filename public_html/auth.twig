@@ -1,0 +1,9 @@
+{% if error %}
+    Error: {{ error }}
+{% endif %}
+{% if user %}
+    {{ user|json_encode }}
+{% endif %}
+<script>
+    history.replaceState(null, null, "/auth");
+</script>

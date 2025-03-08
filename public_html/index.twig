@@ -1,0 +1,9 @@
+<h1>Hi {{ target }} :)</h1>
+<p><a href="{{ path("logout") }}">Logout</a></p>
+{% set test = (query["test"] ?? false)|bool %}
+{% if test %}
+    <p><a href="{{ path("thumb", {"id": "3JcRXj3r_iQ@youtube.com"}) }}"><img src="{{ path("thumb", {"id": "3JcRXj3r_iQ@youtube.com"}) }}" alt="Round 6 album cover"></a></p>
+    <p><a href="{{ path("index") }}">back</a></p>
+{% else %}
+    <p><a href="{{ path("index", {"test": true}) }}">test</a></p>
+{% endif %}

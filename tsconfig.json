@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+      "lib": ["ESNext"],
+      "target": "ESNext",
+      "module": "CommonJS",
+      "sourceMap": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "resolveJsonModule": true
+    }
+}

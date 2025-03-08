@@ -1,0 +1,108 @@
+{
+    "code": "en",
+    "name": "English",
+    "messages": {
+        "user_not_connected": "You are not connected to a voice channel",
+        "player_not_connected": "I'm not in any voice channels",
+        "player_not_playing": "I'm currently not playing anything",
+        "error": "Something went wrong: %s",
+        "track_started": "Now playing: **%s**",
+        "track_author": " by `%s`",
+        "track_playlist": " (in playlist `%s`)"
+    },
+    "commands": {
+        "stop": {
+            "description": "Disconnect the music player",
+            "player_stopped": "Music player disconnected"
+        },
+        "volume": {
+            "description": "Change the volume of the music player",
+            "option": {
+                "name": "number",
+                "description": "New volume"
+            },
+            "volume_changed": "Volume set to **%d%%**"
+        },
+        "playing": {
+            "description": "Get the currently playing track",
+            "title": "Currently playing",
+            "playtime": "Playtime",
+            "duration": "Duration"
+        },
+        "loop": {
+            "description": "Set the loop mode of the player",
+            "option": {
+                "name": "mode",
+                "description": "Loop mode",
+                "choices": [
+                    "Off",
+                    "Track",
+                    "Queue"
+                ]
+            },
+            "change": {
+                "message": "Loop mode is now %s",
+                "state": [
+                    "**disabled**",
+                    "**enabled** for this Track",
+                    "**enabled** for the whole Queue"
+                ]
+            }
+        },
+        "shuffle": {
+            "description": "Toggle the shuffle on the queue",
+            "change": {
+                "message": "Queue shuffling is now **%s**",
+                "enabled": "enabled",
+                "disabled": "disabled"
+            }
+        },
+        "skip": {
+            "description": "Skip the currently playing track",
+            "message": "Skipping current song"
+        },
+        "playlist": {
+            "description": "View the next songs on the queue",
+            "empty": "The player queue is empty",
+            "title": "Up next",
+            "footer": "... and %d more ..."
+        },
+        "pause": {
+            "description": "Pause or resume the player",
+            "change": {
+                "message": "Music playback %s",
+                "paused": "paused",
+                "resumed": "resumed"
+            }
+        },
+        "play": {
+            "description": "Play a music",
+            "option": {
+                "name": "query",
+                "description": "Link"
+            }
+        },
+        "queue": {
+            "description": "Add a track to queue",
+            "option": {
+                "name": "query",
+                "description": "Link"
+            },
+            "song": "Song enqueued: **%s**",
+            "playlist": "Playlist enqueued: **%s**"
+        },
+        "bring": {
+            "description": "Bring the bot to your channel",
+            "switching": "Switching to **%s**"
+        },
+        "search": {
+            "description": "Search the already saved tracks for the specified title",
+            "option": {
+                "name": "title",
+                "description": "The title of the track"
+            },
+            "no_result": "No track was found matching your query.",
+            "title": "Search result"
+        }
+    }
+}

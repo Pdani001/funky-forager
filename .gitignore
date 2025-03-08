@@ -1,0 +1,13 @@
+/node_modules
+/package-lock.json
+/cookies*.txt
+/invite.txt
+/*.js
+/*.js.map
+/routes/*.js
+/routes/*.js.map
+/commands/*.js
+/commands/*.js.map
+/db.json
+/dj squirrel.webp
+/.env

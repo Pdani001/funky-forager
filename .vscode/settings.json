@@ -1,0 +1,10 @@
+{
+    "files.exclude": {
+        "routes/*.js": true,
+        "routes/*.js.map": true,
+        "commands/*.js": true,
+        "commands/*.js.map": true,
+        "*.js": true,
+        "*.js.map": true,
+    }
+}

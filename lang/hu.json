@@ -1,0 +1,108 @@
+{
+    "code": "hu",
+    "name": "Magyar",
+    "messages": {
+        "user_not_connected": "Nem vagy hangcsatornához csatlakozva",
+        "player_not_connected": "A lejátszó nincs csatlakozva sehol sem",
+        "player_not_playing": "Jelenleg nem játszok semmit",
+        "error": "Valami hiba történt: %s",
+        "track_started": "Most hallható: **%s**",
+        "track_author": " - `%s` által",
+        "track_playlist": " (`%s` lejátszási listában)"
+    },
+    "commands": {
+        "stop": {
+            "description": "Zenelejátszó lecsatlakoztatása",
+            "player_stopped": "A lejátszó lecsatlakoztatva"
+        },
+        "volume": {
+            "description": "Zenelejátszó hangerejének beállítása",
+            "option": {
+                "name": "szám",
+                "description": "Új hangerő"
+            },
+            "volume_changed": "Új hangerő: **%d%%**"
+        },
+        "playing": {
+            "description": "Jelenlegi szám lekérdezése",
+            "title": "Most hallható",
+            "playtime": "Idő",
+            "duration": "Hossz"
+        },
+        "loop": {
+            "description": "Ismétlési mód beállítása",
+            "option": {
+                "name": "mód",
+                "description": "Ismétlési mód",
+                "choices": [
+                    "Ki",
+                    "Szám",
+                    "Lista"
+                ]
+            },
+            "change": {
+                "message": "Ismétlés %s",
+                "state": [
+                    "**kikapcsolva**",
+                    "**bekapcsolva** ehhez a Számhoz",
+                    "**bekapcsolva** a Lejátszólistához"
+                ]
+            }
+        },
+        "shuffle": {
+            "description": "Véletlenszerű lejátszás be- és kikapcsolása",
+            "change": {
+                "message": "Lejátszólista keverés **%s**",
+                "enabled": "bekapcsolva",
+                "disabled": "kikapcsolva"
+            }
+        },
+        "skip": {
+            "description": "Jelenlegi szám átugrása",
+            "message": "Szám átugrása..."
+        },
+        "playlist": {
+            "description": "Következő számok megtekintése a lejátszólistán",
+            "empty": "A lejátszólista üres",
+            "title": "Következik",
+            "footer": "... és %d további ..."
+        },
+        "pause": {
+            "description": "Lejátszás szüneteltetése vagy folytatása",
+            "change": {
+                "message": "Zenelejátszás %s",
+                "paused": "szüneteltetve",
+                "resumed": "folytatva"
+            }
+        },
+        "play": {
+            "description": "Zene játszása",
+            "option": {
+                "name": "kérés",
+                "description": "Link"
+            }
+        },
+        "queue": {
+            "description": "Szám hozzáadása a lejátszólistához",
+            "option": {
+                "name": "kérés",
+                "description": "Link"
+            },
+            "song": "Szám sorba állítva: **%s**",
+            "playlist": "Lejátszólista sorba állítva: **%s**"
+        },
+        "bring": {
+            "description": "A bot áthívása a te csatornádba",
+            "switching": "Csatlakozom a(z) **%s** csatornához"
+        },
+        "search": {
+            "description": "Keresés a már mentett számok között a megadott cím alapján",
+            "option": {
+                "name": "cím",
+                "description": "A szám címe"
+            },
+            "no_result": "Nincs talált szám a megadott kérésre.",
+            "title": "Találatok"
+        }
+    }
+}
