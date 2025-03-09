@@ -16,5 +16,9 @@ CLIENT_SECRET="your client secret"
 SERVER_ID="your server id"
 PORT=6065
 ```
+
+It is also recommended that you set up cookie files with the netscape format.
+File names should follow this format: `cookies*.txt` where the star is a wildcard and can be anything
+
 ---
 Made with ❤ by Pdani

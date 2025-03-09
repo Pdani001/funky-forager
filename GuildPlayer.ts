@@ -19,6 +19,8 @@ const cookies = fs
   .readdirSync(__dirname)
   .filter((file) => file.endsWith(".txt") && file.startsWith("cookies"));
 function cookieFile(): string {
+  if(cookies.length == 0)
+    return "";
   let rng = crypto.randomInt(cookies.length);
   return cookies[rng];
 }
