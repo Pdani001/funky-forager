@@ -80,7 +80,7 @@ router.get(route.path, async (req, res) => {
     }
   }
   return res.redirect(
-    `https://discord.com/api/oauth2/authorize?client_id=1093513107059519558&redirect_uri=https%3A%2F%2F${process.env.DOMAIN}%2Fauth&response_type=code&scope=identify%20guilds`
+    `https://discord.com/api/oauth2/authorize?client_id=${process.env.CLIENT_ID}&redirect_uri=https%3A%2F%2F${process.env.DOMAIN}%2Fauth&response_type=code&scope=identify%20guilds`
   );
 });
 
