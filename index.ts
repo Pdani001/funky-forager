@@ -88,7 +88,7 @@ client.once(Events.ClientReady, async (readyClient) => {
       return file.slice(0, file.length - 4);
     });
   const missingTracks = allTracks.filter(
-    (track) => file_list.findIndex(item=>track.id==item) == -1
+    (track) => file_list.findIndex(item=>track.id==item) == -1 && !track.metadata.live
   );
   await TrackUrl.destroy({
     where: {
@@ -98,7 +98,7 @@ client.once(Events.ClientReady, async (readyClient) => {
   missingTracks.forEach(async (track) => {
     await track.destroy();
     let result = await sequelize.query(
-      `SELECT * FROM \`playlist\` WHERE JSON_CONTAINS(${sequelize.escape(
+      `SELECT * FROM \`playlists\` WHERE JSON_CONTAINS(\`tracks\`,${sequelize.escape(
         `"${track.id}"`
       )});`,
       {
@@ -142,6 +142,12 @@ client.once(Events.ClientReady, async (readyClient) => {
   const hashless = allTracks.filter(track=>!track.hash);
 
   for(let track of hashless){
+    if(track.metadata.live){
+      let random_hash = crypto.createHash("md5").update(crypto.randomUUID()).digest("hex");
+      track.setDataValue("hash", random_hash);
+      track.save();
+      continue;
+    }
     let music_file = path.join(files_dir, track.id + ".mp3");
     let hash = crypto.createHash("md5");
     fs.createReadStream(music_file).on("data", (data)=>{

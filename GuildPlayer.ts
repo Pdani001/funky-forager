@@ -336,8 +336,7 @@ class GuildPlayerImpl extends EventEmitter<PlayerEvent> implements GuildPlayer {
             // Seems to be reconnecting to a new channel - ignore disconnect
           } catch {
             // Seems to be a real disconnect which SHOULDN'T be recovered from
-            connection.destroy();
-            this._currentChannel = null;
+            this.stop();
           }
         }
       );
@@ -543,9 +542,15 @@ class GuildPlayerImpl extends EventEmitter<PlayerEvent> implements GuildPlayer {
       let trackId = await getTrackId(query);
       if (trackId) {
         let track = await getTrack(trackId);
-        let playlist = getPlaylist(trackId);
-        if (track.length == 1) return resolve(track[0]);
-        if (playlist) return resolve(playlist);
+        if (track.length == 1) {
+          track[0].query = query;
+          return resolve(track[0]);
+        }
+        let playlist = await getPlaylist(trackId);
+        if (playlist){
+          playlist.query = query;
+          return resolve(playlist);
+        }
       }
       try {
         new URL(query);
