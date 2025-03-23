@@ -95,6 +95,7 @@ class TrackMetadataImpl implements TrackMetadata {
   author?: string;
   duration: number;
   thumbnail?: string;
+  live?: boolean;
 }
 import crypto from "crypto";
 class GuildPlayerImpl extends EventEmitter<PlayerEvent> implements GuildPlayer {
@@ -265,10 +266,20 @@ class GuildPlayerImpl extends EventEmitter<PlayerEvent> implements GuildPlayer {
   private read(track: Track, seek?: number) {
     if(!seek)
       seek = 0;
+    let _pipe = new stream.PassThrough();
+    if(track.metadata.live){
+      const cmd = youtubedl.exec(track.query, {
+        output: "-",
+        addHeader: ["referer:youtube.com", "user-agent:googlebot"],
+        preferFreeFormats: true,
+        cookies: cookieFile(),
+      });
+      cmd.stdout.pipe(_pipe, { end: true });
+      return _pipe;
+    }
     let music_file = path.join(this._workingDir, track.id + ".mp3");
     let _stream = fs.createReadStream(music_file);
     _stream.on("error", () => {});
-    let _pipe = new stream.PassThrough();
     let seeker = ffmpeg(_stream);
     seeker.format("mp3").setStartTime(seek).pipe(_pipe);
     seeker.on("error",()=>{
@@ -432,7 +443,6 @@ class GuildPlayerImpl extends EventEmitter<PlayerEvent> implements GuildPlayer {
             dumpSingleJson: true,
             skipDownload: true,
             noPlaylist: true,
-            matchFilter: "!is_live",
           })) as Payload;
         } catch (e) {
           console.log(
@@ -449,12 +459,13 @@ class GuildPlayerImpl extends EventEmitter<PlayerEvent> implements GuildPlayer {
       let metadata = new TrackMetadataImpl();
       metadata.title = payload.title;
       metadata.author = payload.channel ?? payload.uploader;
+      metadata.live = payload.is_live || payload.duration === undefined;
       let music_file = path.join(this._workingDir, trackId + ".mp3");
       
       const music_exists = fs.existsSync(music_file);
       
       let file_hash: string;
-      if (!music_exists) {
+      if (!music_exists && !metadata.live) {
         try {
           file_hash = await this.download(query, trackId);
         } catch (e) {
@@ -466,23 +477,26 @@ class GuildPlayerImpl extends EventEmitter<PlayerEvent> implements GuildPlayer {
           return reject(e);
         }
       } else {
-        file_hash = await this.getHash(music_file);
+        file_hash = !metadata.live ? await this.getHash(music_file) : crypto.createHash("md5").update(crypto.randomUUID()).digest("hex");
       }
       let thumb_file = path.join(this._workingDir, trackId + ".png");
       const thumb_exists = fs.existsSync(thumb_file);
       if(thumb_exists){
         metadata.thumbnail = thumb_file;
       }
-      try {
-        let duration = await this.getDuration(music_file);
-        metadata.duration = Math.trunc(duration * 1000);
-      } catch (e) {
-        console.log(
-          new Date(),
-          `[guild:${this._guildId}]`,
-          `getDuration failed for '${music_file}'`
-        );
-        return reject(e);
+      metadata.duration = 0;
+      if(music_exists){
+        try {
+          let duration = await this.getDuration(music_file);
+          metadata.duration = Math.trunc(duration * 1000);
+        } catch (e) {
+          console.log(
+            new Date(),
+            `[guild:${this._guildId}]`,
+            `getDuration failed for '${music_file}'`
+          );
+          return reject(e);
+        }
       }
       let track = new Track({ query, id: trackId, metadata, hash: file_hash });
       await track.save();
@@ -551,7 +565,6 @@ class GuildPlayerImpl extends EventEmitter<PlayerEvent> implements GuildPlayer {
           dumpSingleJson: true,
           skipDownload: true,
           flatPlaylist: true,
-          matchFilter: "!is_live",
         })) as Payload;
       } catch (e) {
         console.log(

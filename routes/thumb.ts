@@ -11,9 +11,7 @@ const route: WebRoute = {
 };
 
 router.get(route.path, async (req, res) => {
-  res.set("Cache-Control", "no-cache, no-store, must-revalidate, max-age=0");
-  res.set("Pragma", "no-cache");
-  res.set("Expires", "0");
+  res.set("Cache-Control", "public, max-age=604800");
   let trackId = req.params.id;
   let track = await Track.findByPk(trackId);
   if (!track || !track.metadata.thumbnail) {

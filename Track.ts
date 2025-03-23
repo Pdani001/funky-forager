@@ -36,6 +36,7 @@ export interface TrackMetadata {
     readonly author?: string;
     readonly duration: number;
     readonly thumbnail?: string;
+    readonly live?: boolean;
 }
 export class Track extends Model {
     declare metadata: TrackMetadata;
